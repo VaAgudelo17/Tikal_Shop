@@ -2,16 +2,10 @@ import { CategoryCard } from "./category-card";
 
 const categories = [
   {
-    name: "Acuarios",
-    description: "Tanques, kits y configuraciones completas",
-    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&h=450&fit=crop",
-    itemCount: 245,
-  },
-  {
-    name: "Accesorios para Acuarios",
-    description: "Filtros, motores, decoraciones",
-    image: "https://images.unsplash.com/photo-1571752726703-5e7d1f6a986d?w=600&h=450&fit=crop",
-    itemCount: 520,
+    name: "Peces",
+    description: "Acuarios, tanques, filtros y alimento",
+    image: "https://images.unsplash.com/photo-1535591273668-578e31182c4f?w=600&h=450&fit=crop",
+    itemCount: 240,
   },
   {
     name: "Perros",
