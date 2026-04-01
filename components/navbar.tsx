@@ -15,7 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const categories = [
-  "Acuarios",
+  "Peces",
   "Perros",
   "Gatos",
   "Hamsters",

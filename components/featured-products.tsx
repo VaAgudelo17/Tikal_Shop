@@ -6,7 +6,7 @@ import { ProductCard } from "./product-card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const filters = ["Todos", "Acuarios", "Perros", "Gatos", "Hamsters", "Aves"];
+const filters = ["Todos", "Peces", "Perros", "Gatos", "Hamsters", "Aves"];
 
 interface Product {
   id: number;
