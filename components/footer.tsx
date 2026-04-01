@@ -45,7 +45,7 @@ export function Footer() {
                 alt="Tikal Shop Logo"
                 width={120}
                 height={100}
-                className="h-16 w-28 object-contain"
+                className="h-16 w-28 object-contain mix-blend-multiply"
               />
               <div className="flex flex-col leading-none">
                 <span className="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Tikal Shop</span>

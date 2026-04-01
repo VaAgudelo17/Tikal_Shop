@@ -47,7 +47,7 @@ export function Navbar() {
               alt="Tikal Shop Logo"
               width={96}
               height={96}
-              className="h-12 w-12 sm:h-16 sm:w-16 object-contain"
+              className="h-12 w-12 sm:h-16 sm:w-16 object-contain mix-blend-multiply"
             />
             <div className="flex flex-col leading-none">
               <span className="text-xl sm:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Tikal Shop</span>
@@ -170,7 +170,7 @@ export function Navbar() {
                       alt="Tikal Shop Logo"
                       width={72}
                       height={72}
-                      className="h-16 w-16 object-contain"
+                      className="h-16 w-16 object-contain mix-blend-multiply"
                     />
                     <div className="flex flex-col leading-none">
                       <span className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Tikal Shop</span>
