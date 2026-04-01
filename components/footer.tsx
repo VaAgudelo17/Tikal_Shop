@@ -153,6 +153,7 @@ export function Footer() {
                   type="email"
                   placeholder="Tu correo"
                   className="bg-secondary border-0 text-sm"
+                  suppressHydrationWarning
                 />
                 <Button size="icon" className="shrink-0">
                   <Mail className="h-4 w-4" />

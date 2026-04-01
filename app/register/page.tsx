@@ -76,7 +76,7 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 placeholder="Valentina Agudelo"
                 required
-                autoComplete="name"
+                autoComplete="name" suppressHydrationWarning
               />
             </div>
             <div className="flex flex-col gap-1.5">
@@ -89,7 +89,7 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 placeholder="correo@ejemplo.com"
                 required
-                autoComplete="email"
+                autoComplete="email" suppressHydrationWarning
               />
             </div>
             <div className="flex flex-col gap-1.5">
@@ -102,7 +102,7 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 placeholder="Mínimo 6 caracteres"
                 required
-                autoComplete="new-password"
+                autoComplete="new-password" suppressHydrationWarning
               />
             </div>
             <div className="flex flex-col gap-1.5">
@@ -115,7 +115,7 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 placeholder="••••••••"
                 required
-                autoComplete="new-password"
+                autoComplete="new-password" suppressHydrationWarning
               />
             </div>
 

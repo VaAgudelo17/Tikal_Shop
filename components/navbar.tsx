@@ -37,7 +37,7 @@ export function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80 overflow-hidden">
       <div className="container mx-auto px-3 sm:px-4">
         <div className="flex h-14 sm:h-20 items-center justify-between gap-2 sm:gap-4">
           {/* Logo */}
@@ -45,9 +45,9 @@ export function Navbar() {
             <Image
               src="/images/logo-pez.png"
               alt="Tikal Shop Logo"
-              width={112}
-              height={112}
-              className="h-16 w-16 sm:h-24 sm:w-24 object-contain"
+              width={96}
+              height={96}
+              className="h-12 w-12 sm:h-16 sm:w-16 object-contain"
             />
             <div className="flex flex-col leading-none">
               <span className="text-xl sm:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Tikal Shop</span>
@@ -78,6 +78,7 @@ export function Navbar() {
                 className="pl-9 bg-secondary border-0"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                suppressHydrationWarning
               />
             </form>
 
@@ -205,6 +206,7 @@ export function Navbar() {
                   autoFocus
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  suppressHydrationWarning
                 />
               </div>
             </form>

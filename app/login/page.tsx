@@ -68,7 +68,7 @@ function LoginForm() {
                 onChange={handleChange}
                 placeholder="correo@ejemplo.com"
                 required
-                autoComplete="email"
+                autoComplete="email" suppressHydrationWarning
               />
             </div>
             <div className="flex flex-col gap-1.5">
@@ -81,7 +81,7 @@ function LoginForm() {
                 onChange={handleChange}
                 placeholder="••••••••"
                 required
-                autoComplete="current-password"
+                autoComplete="current-password" suppressHydrationWarning
               />
             </div>
 
