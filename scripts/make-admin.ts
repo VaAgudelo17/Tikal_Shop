@@ -1,9 +1,8 @@
 import "dotenv/config"
 import { PrismaClient } from "@prisma/client"
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3"
-import * as path from "path"
+import { PrismaNeon } from "@prisma/adapter-neon"
 
-const adapter = new PrismaBetterSqlite3({ url: `file:${path.resolve("prisma/dev.db")}` })
+const adapter = new PrismaNeon({ connectionString: process.env.DATABASE_URL! })
 const prisma = new PrismaClient({ adapter })
 
 const email = process.argv[2]

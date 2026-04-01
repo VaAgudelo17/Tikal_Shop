@@ -1,13 +1,10 @@
 import { PrismaClient } from "@prisma/client"
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3"
-import Database from "better-sqlite3"
+import { PrismaNeon } from "@prisma/adapter-neon"
 
-
-
-const adapter = new PrismaBetterSqlite3({ url: `file:${process.cwd()}/prisma/dev.db` })
+const adapter = new PrismaNeon({ connectionString: process.env.DATABASE_URL! })
 const prisma = new PrismaClient({ adapter })
 
-const categories = ["Acuarios", "Perros", "Gatos", "Hamsters", "Aves"]
+const categories = ["Peces", "Perros", "Gatos", "Hamsters", "Aves"]
 
 const products = [
   {
@@ -17,7 +14,7 @@ const products = [
     image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=400&fit=crop",
     rating: 4.8,
     reviews: 124,
-    category: "Acuarios",
+    category: "Peces",
     badge: "Más Vendido",
     stock: 15,
   },
@@ -27,7 +24,7 @@ const products = [
     image: "https://images.unsplash.com/photo-1571752726703-5e7d1f6a986d?w=400&h=400&fit=crop",
     rating: 4.6,
     reviews: 89,
-    category: "Acuarios",
+    category: "Peces",
     stock: 40,
   },
   {
@@ -37,7 +34,7 @@ const products = [
     image: "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=400&h=400&fit=crop",
     rating: 4.6,
     reviews: 201,
-    category: "Acuarios",
+    category: "Peces",
     stock: 30,
   },
   {
@@ -132,7 +129,6 @@ const products = [
 async function main() {
   console.log("Seeding database...")
 
-  // Crear categorías
   for (const name of categories) {
     await prisma.category.upsert({
       where: { name },
@@ -142,17 +138,11 @@ async function main() {
   }
   console.log(`✓ ${categories.length} categorías creadas`)
 
-  // Crear productos
   for (const product of products) {
-    const category = await prisma.category.findUnique({
-      where: { name: product.category },
-    })
+    const category = await prisma.category.findUnique({ where: { name: product.category } })
     if (!category) continue
-
-    await prisma.product.upsert({
-      where: { id: products.indexOf(product) + 1 },
-      update: {},
-      create: {
+    await prisma.product.create({
+      data: {
         name: product.name,
         price: product.price,
         originalPrice: product.originalPrice ?? null,
