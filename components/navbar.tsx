@@ -45,9 +45,9 @@ export function Navbar() {
             <Image
               src="/images/logo-pez.png"
               alt="Tikal Shop Logo"
-              width={96}
-              height={96}
-              className="h-14 w-14 sm:h-20 sm:w-20 object-contain"
+              width={112}
+              height={112}
+              className="h-16 w-16 sm:h-24 sm:w-24 object-contain"
             />
             <div className="flex flex-col leading-none">
               <span className="text-xl sm:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Tikal Shop</span>
@@ -165,9 +165,9 @@ export function Navbar() {
                     <Image
                       src="/images/logo-pez.png"
                       alt="Tikal Shop Logo"
-                      width={56}
-                      height={56}
-                      className="h-12 w-12 object-contain"
+                      width={72}
+                      height={72}
+                      className="h-16 w-16 object-contain"
                     />
                     <div className="flex flex-col leading-none">
                       <span className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Tikal Shop</span>
