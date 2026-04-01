@@ -24,9 +24,17 @@ const categories = [
 
 export function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const { favorites } = useFavorites();
   const { cartCount } = useCart();
   const { data: session } = useSession();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      window.location.href = `/?search=${encodeURIComponent(searchQuery.trim())}`
+    }
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
@@ -63,13 +71,15 @@ export function Navbar() {
           {/* Search & Cart */}
           <div className="flex items-center gap-1 sm:gap-2">
             {/* Desktop Search */}
-            <div className="relative hidden w-48 lg:w-64 md:block">
+            <form onSubmit={handleSearch} className="relative hidden w-48 lg:w-64 md:block">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 placeholder="Buscar productos..."
                 className="pl-9 bg-secondary border-0"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
-            </div>
+            </form>
 
             {/* Mobile Search Toggle */}
             <Button
@@ -184,14 +194,18 @@ export function Navbar() {
         {/* Mobile Search Bar */}
         {isSearchOpen && (
           <div className="border-t border-border py-3 md:hidden">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                placeholder="Buscar productos..."
-                className="pl-9 bg-secondary border-0"
-                autoFocus
-              />
-            </div>
+            <form onSubmit={handleSearch}>
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  placeholder="Buscar productos..."
+                  className="pl-9 bg-secondary border-0"
+                  autoFocus
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+            </form>
           </div>
         )}
       </div>

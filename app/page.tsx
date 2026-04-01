@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Navbar } from "@/components/navbar";
 import { HeroSection } from "@/components/hero-section";
 import { CategoriesSection } from "@/components/categories-section";
@@ -11,7 +12,9 @@ export default function Home() {
       <main className="flex-1">
         <HeroSection />
         <CategoriesSection />
-        <FeaturedProducts />
+        <Suspense>
+          <FeaturedProducts />
+        </Suspense>
       </main>
       <Footer />
     </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { ProductCard } from "./product-card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -16,36 +17,53 @@ interface Product {
   rating: number;
   reviews: number;
   badge: string | null;
+  stock: number;
   category: { name: string };
 }
 
 export function FeaturedProducts() {
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("search") ?? "";
   const [activeFilter, setActiveFilter] = useState("Todos");
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
-    const url = activeFilter === "Todos"
-      ? "/api/products"
-      : `/api/products?category=${encodeURIComponent(activeFilter)}`;
+    const params = new URLSearchParams();
+    if (activeFilter !== "Todos") params.set("category", activeFilter);
+    if (searchQuery) params.set("search", searchQuery);
+    const url = `/api/products?${params.toString()}`;
 
     fetch(url)
       .then((r) => r.json())
       .then((data) => { setProducts(data); setLoading(false); })
       .catch(() => setLoading(false));
-  }, [activeFilter]);
+  }, [activeFilter, searchQuery]);
 
   return (
     <section className="bg-secondary/30 py-12 sm:py-16 md:py-24">
       <div className="container mx-auto px-4">
         <div className="mb-8 sm:mb-12 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground md:text-4xl">
-            Productos Destacados
-          </h2>
-          <p className="mt-3 sm:mt-4 text-sm sm:text-base text-muted-foreground">
-            Artículos seleccionados y amados por dueños de mascotas
-          </p>
+          {searchQuery ? (
+            <>
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground md:text-4xl">
+                Resultados para &ldquo;{searchQuery}&rdquo;
+              </h2>
+              <p className="mt-3 sm:mt-4 text-sm sm:text-base text-muted-foreground">
+                {products.length} producto{products.length !== 1 ? "s" : ""} encontrado{products.length !== 1 ? "s" : ""}
+              </p>
+            </>
+          ) : (
+            <>
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground md:text-4xl">
+                Productos Destacados
+              </h2>
+              <p className="mt-3 sm:mt-4 text-sm sm:text-base text-muted-foreground">
+                Artículos seleccionados y amados por dueños de mascotas
+              </p>
+            </>
+          )}
         </div>
 
         {/* Filter buttons */}
@@ -84,6 +102,7 @@ export function FeaturedProducts() {
             {products.map((product) => (
               <ProductCard
                 key={product.id}
+                id={product.id}
                 name={product.name}
                 price={product.price}
                 originalPrice={product.originalPrice ?? undefined}
@@ -91,6 +110,7 @@ export function FeaturedProducts() {
                 rating={product.rating}
                 reviews={product.reviews}
                 badge={product.badge ?? undefined}
+                stock={product.stock}
               />
             ))}
           </div>

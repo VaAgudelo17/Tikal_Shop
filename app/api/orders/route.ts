@@ -20,6 +20,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "El carrito está vacío" }, { status: 400 })
   }
 
+  // Verificar stock disponible
+  for (const item of cartItems) {
+    if (item.product.stock < item.quantity) {
+      return NextResponse.json(
+        { error: `Stock insuficiente para "${item.product.name}". Disponible: ${item.product.stock}` },
+        { status: 400 }
+      )
+    }
+  }
+
   const subtotal = cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0)
   const shipping = subtotal > 100000 ? 0 : 15000
   const total = subtotal + shipping
@@ -50,6 +60,16 @@ export async function POST(req: NextRequest) {
     },
     include: { items: true },
   })
+
+  // Decrementar stock de cada producto
+  await Promise.all(
+    cartItems.map((item) =>
+      prisma.product.update({
+        where: { id: item.productId },
+        data: { stock: { decrement: item.quantity } },
+      })
+    )
+  )
 
   // Vaciar el carrito
   await prisma.cartItem.deleteMany({ where: { sessionId } })
