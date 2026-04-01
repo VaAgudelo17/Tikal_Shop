@@ -15,7 +15,7 @@ export function CategoryCard({
 }: CategoryCardProps) {
   return (
     <a
-      href={`#${name.toLowerCase().replace(/\s+/g, "-")}`}
+      href={`/?category=${encodeURIComponent(name)}#productos`}
       className="group relative overflow-hidden rounded-xl sm:rounded-2xl bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
     >
       <div className="aspect-[4/3] overflow-hidden">

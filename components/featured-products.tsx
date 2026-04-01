@@ -24,7 +24,12 @@ interface Product {
 export function FeaturedProducts() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("search") ?? "";
-  const [activeFilter, setActiveFilter] = useState("Todos");
+  const categoryParam = searchParams.get("category") ?? "";
+  const [activeFilter, setActiveFilter] = useState(categoryParam || "Todos");
+
+  useEffect(() => {
+    if (categoryParam) setActiveFilter(categoryParam);
+  }, [categoryParam]);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -42,7 +47,7 @@ export function FeaturedProducts() {
   }, [activeFilter, searchQuery]);
 
   return (
-    <section className="bg-secondary/30 py-12 sm:py-16 md:py-24">
+    <section id="productos" className="bg-secondary/30 py-12 sm:py-16 md:py-24">
       <div className="container mx-auto px-4">
         <div className="mb-8 sm:mb-12 text-center">
           {searchQuery ? (
