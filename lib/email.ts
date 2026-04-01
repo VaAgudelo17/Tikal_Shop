@@ -1,8 +1,6 @@
 import { Resend } from "resend"
 import { OrderConfirmationEmail } from "@/emails/order-confirmation"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 interface SendOrderConfirmationParams {
   to: string
   fullName: string
@@ -16,8 +14,13 @@ interface SendOrderConfirmationParams {
 }
 
 export async function sendOrderConfirmation(params: SendOrderConfirmationParams) {
-  const { to, ...emailProps } = params
+  if (!process.env.RESEND_API_KEY) {
+    console.warn("RESEND_API_KEY no configurada, omitiendo email")
+    return
+  }
 
+  const resend = new Resend(process.env.RESEND_API_KEY)
+  const { to, ...emailProps } = params
   const { error } = await resend.emails.send({
     from: "Tikal Shop <pedidos@tikalboutique.shop>",
     to,
