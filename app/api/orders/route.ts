@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/auth"
+import { sendOrderConfirmation } from "@/lib/email"
 
 export async function POST(req: NextRequest) {
   const session = await auth()
@@ -73,6 +74,19 @@ export async function POST(req: NextRequest) {
 
   // Vaciar el carrito
   await prisma.cartItem.deleteMany({ where: { sessionId } })
+
+  // Enviar correo de confirmación (sin bloquear la respuesta)
+  sendOrderConfirmation({
+    to: email,
+    fullName,
+    orderId: order.id,
+    items: order.items.map((i) => ({ name: i.name, price: i.price, quantity: i.quantity, image: i.image })),
+    subtotal,
+    shipping,
+    total,
+    address,
+    city,
+  }).catch((err) => console.error("Error enviando correo:", err))
 
   return NextResponse.json(order, { status: 201 })
 }
