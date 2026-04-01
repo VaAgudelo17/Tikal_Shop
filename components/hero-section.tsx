@@ -7,26 +7,11 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Leaf, ChevronLeft, ChevronRight } from "lucide-react";
 
 const slides = [
-  {
-    src: "https://images.unsplash.com/photo-1520302630591-fd1c66edc19d?w=600&h=600&fit=crop",
-    alt: "Acuario con peces tropicales",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&h=600&fit=crop",
-    alt: "Perro feliz",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600&h=600&fit=crop",
-    alt: "Gato curioso",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=600&h=600&fit=crop",
-    alt: "Hamster adorable",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1522858547137-f1dcec554f55?w=600&h=600&fit=crop",
-    alt: "Ave colorida",
-  },
+  { src: "/images/acuario_pez.jpg", alt: "Peces betta en acuario" },
+  { src: "/images/cama_perro.jpg", alt: "Perro descansando en su cama" },
+  { src: "/images/hamster_rueda.jpg", alt: "Hamster en su rueda" },
+  { src: "/images/pajaro.jpg", alt: "Pájaros coloridos" },
+  { src: "/images/rascador_gato.jpg", alt: "Gato con rascador" },
 ];
 
 export function HeroSection() {
