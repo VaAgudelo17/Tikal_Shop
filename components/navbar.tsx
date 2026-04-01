@@ -27,7 +27,7 @@ export function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const { favorites } = useFavorites();
   const { cartCount } = useCart();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -116,7 +116,9 @@ export function Navbar() {
             </CartDrawer>
 
             {/* User Account */}
-            {session ? (
+            {status === "loading" ? (
+              <div className="h-9 w-9 rounded-full bg-secondary animate-pulse" />
+            ) : session ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="icon" className="h-9 w-9">
