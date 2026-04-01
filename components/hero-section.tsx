@@ -1,7 +1,42 @@
+"use client";
+
+import { useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Leaf } from "lucide-react";
+import { ArrowRight, Leaf, ChevronLeft, ChevronRight } from "lucide-react";
+
+const slides = [
+  {
+    src: "https://images.unsplash.com/photo-1520302630591-fd1c66edc19d?w=600&h=600&fit=crop",
+    alt: "Acuario con peces tropicales",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&h=600&fit=crop",
+    alt: "Perro feliz",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600&h=600&fit=crop",
+    alt: "Gato curioso",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=600&h=600&fit=crop",
+    alt: "Hamster adorable",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1522858547137-f1dcec554f55?w=600&h=600&fit=crop",
+    alt: "Ave colorida",
+  },
+];
 
 export function HeroSection() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
+    Autoplay({ delay: 3500, stopOnInteraction: false }),
+  ]);
+
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-accent/10 to-secondary">
       {/* Decorative elements */}
@@ -58,16 +93,39 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Hero Image */}
+          {/* Hero Carousel */}
           <div className="relative">
-            <div className="relative mx-auto aspect-square max-w-md lg:max-w-lg rounded-3xl bg-gradient-to-br from-primary/20 to-accent/20 p-3 sm:p-4 shadow-2xl">
-              <img
-                src="https://images.unsplash.com/photo-1520302630591-fd1c66edc19d?w=600&h=600&fit=crop"
-                alt="Hermoso acuario con peces tropicales"
-                className="h-full w-full rounded-2xl object-cover"
-              />
+            <div className="relative mx-auto aspect-square max-w-md lg:max-w-lg rounded-3xl bg-gradient-to-br from-primary/20 to-accent/20 p-3 sm:p-4 shadow-2xl overflow-hidden">
+              <div ref={emblaRef} className="h-full w-full overflow-hidden rounded-2xl">
+                <div className="flex h-full">
+                  {slides.map((slide) => (
+                    <div key={slide.src} className="flex-[0_0_100%] h-full">
+                      <img
+                        src={slide.src}
+                        alt={slide.alt}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Prev / Next */}
+              <button
+                onClick={scrollPrev}
+                className="absolute left-5 top-1/2 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-card/80 backdrop-blur-sm shadow hover:bg-card transition-colors"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+              <button
+                onClick={scrollNext}
+                className="absolute right-5 top-1/2 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-card/80 backdrop-blur-sm shadow hover:bg-card transition-colors"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
             </div>
-            {/* Floating cards — fuera del overflow-hidden para no cortarse */}
+
+            {/* Floating cards */}
             <div className="absolute -left-2 sm:-left-4 bottom-6 sm:bottom-8 rounded-xl sm:rounded-2xl bg-card p-3 sm:p-4 shadow-lg md:-left-8">
               <div className="flex items-center gap-2 sm:gap-3">
                 <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg sm:rounded-xl bg-primary/10">
